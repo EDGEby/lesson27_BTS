@@ -31,12 +31,12 @@ public class BST<T extends Comparable<T>> implements BinaryTree<T>{
     }
 
     private Node<T> insert(Node<T> root,T data){
-        if(isEmpty()){
+        if(root==null){
             return new Node<T>(data);
         }
-        else if(root.data.compareTo(data) < 0){
+        else if(data.compareTo(root.data) < 0){
             root.left=insert(root.left,data);
-        } else if (root.data.compareTo(data) > 0) {
+        } else if (data.compareTo(root.data) > 0) {
             root.right=insert(root.right,data);
         }
         else {
@@ -46,6 +46,11 @@ public class BST<T extends Comparable<T>> implements BinaryTree<T>{
     }
 
     @Override
+    public T findMin(){
+        Node<T> temp=findMin(root);
+        return temp.data;
+    }
+
     public Node<T> findMin(Node<T> root) {
         Node<T> curr = root;
         while (curr.left !=null){
@@ -100,5 +105,23 @@ public class BST<T extends Comparable<T>> implements BinaryTree<T>{
             return contains(root.right,data);
         else
             return true;
+    }
+
+    @Override
+    public void INOrder() {
+        INOrder(root);
+    }
+    private void INOrder(Node<T> root){
+        if (root==null) return;
+        INOrder(root.left);
+        System.out.println(root.data + " ");
+        INOrder(root.right);
+    }
+
+    void preorder(Node<T> root){
+        if (root==null) return;
+        System.out.println(root.data + " ");
+        preorder(root.left);
+        preorder(root.right);
     }
 }
